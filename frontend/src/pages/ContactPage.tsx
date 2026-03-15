@@ -8,6 +8,7 @@ import heroBanner from "@/assets/hero-banner.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
+import { GAS_URL } from "@/lib/gas";
 
 const nameRegex = /^[a-zA-Z\u0900-\u097F\s]+$/;
 
@@ -33,10 +34,32 @@ const ContactForm = ({ t }: { t: (en: string, hi: string) => string }) => {
     return Object.keys(e).length === 0;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (validate()) {
-      toast({ title: t("Message sent!", "संदेश भेजा गया!"), description: t("We'll get back to you soon.", "हम जल्द ही आपसे संपर्क करेंगे।") });
-      setName(""); setEmail(""); setPhone(""); setSubject(""); setMessage(""); setErrors({});
+      try {
+        const formData = {
+          formType: 'contact',
+          name,
+          email,
+          phone,
+          subject,
+          message
+        };
+        const response = await fetch(GAS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+        if (result.success) {
+          toast({ title: t("Message sent!", "संदेश भेजा गया!"), description: t("We'll get back to you soon.", "हम जल्द ही आपसे संपर्क करेंगे।") });
+          setName(""); setEmail(""); setPhone(""); setSubject(""); setMessage(""); setErrors({});
+        } else {
+          toast({ title: t("Submission failed", "प्रस्तुति विफल"), description: result.error || t("Please try again.", "कृपया पुनः प्रयास करें।"), variant: "destructive" });
+        }
+      } catch (error) {
+        toast({ title: t("Network error", "नेटवर्क त्रुटि"), description: t("Please check your connection and try again.", "कृपया अपना कनेक्शन जांचें और पुनः प्रयास करें।"), variant: "destructive" });
+      }
     }
   };
 

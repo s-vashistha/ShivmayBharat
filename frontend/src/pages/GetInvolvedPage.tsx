@@ -10,6 +10,7 @@ import heroBanner from "@/assets/hero-banner.jpg";
 import missionImage from "@/assets/mission-image.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
+import { GAS_URL } from "@/lib/gas";
 
 const opportunities = [
   { icon: Users, title: "Volunteer Programs", titleHi: "स्वयंसेवक कार्यक्रम", desc: "Join weekend plantation drives, lake cleanups, and nursery work. We welcome individuals, families, and groups.", descHi: "सप्ताहांत वृक्षारोपण अभियानों, झील सफाई और नर्सरी कार्य में शामिल हों। हम व्यक्तियों, परिवारों और समूहों का स्वागत करते हैं।", cta: "Sign Up to Volunteer", ctaHi: "स्वयंसेवक बनें" },
@@ -78,10 +79,32 @@ const VolunteerForm = ({ t }: { t: (en: string, hi: string) => string }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (validate()) {
-      toast({ title: t("Application submitted!", "आवेदन जमा हो गया!"), description: t("We'll get back to you soon.", "हम जल्द ही आपसे संपर्क करेंगे।") });
-      setFirstName(""); setLastName(""); setEmail(""); setPhone(""); setInterest(""); setErrors({});
+      try {
+        const formData = {
+          formType: 'getinvolved',
+          firstName,
+          lastName,
+          email,
+          phone,
+          interest
+        };
+        const response = await fetch(GAS_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+        if (result.success) {
+          toast({ title: t("Application submitted!", "आवेदन जमा हो गया!"), description: t("We'll get back to you soon.", "हम जल्द ही आपसे संपर्क करेंगे।") });
+          setFirstName(""); setLastName(""); setEmail(""); setPhone(""); setInterest(""); setErrors({});
+        } else {
+          toast({ title: t("Submission failed", "प्रस्तुति विफल"), description: result.error || t("Please try again.", "कृपया पुनः प्रयास करें।"), variant: "destructive" });
+        }
+      } catch (error) {
+        toast({ title: t("Network error", "नेटवर्क त्रुटि"), description: t("Please check your connection and try again.", "कृपया अपना कनेक्शन जांचें और पुनः प्रयास करें।"), variant: "destructive" });
+      }
     }
   };
 

@@ -4,8 +4,12 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Heart, TreePine, Droplets, Shield, Quote, ChevronDown, QrCode, Building2, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+import { GAS_URL, RAZORPAY_KEY_ID } from "@/lib/gas";
+// import { loadScript } from "@razorpay/react-razorpay"; // Native SDK - no npm needed
 import donateHero from "@/assets/donate-hero.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useCallback, useEffect } from "react";
 
 const amounts = [500, 1000, 2500, 5000, 10000];
 
@@ -47,6 +51,10 @@ const faqsRight = [
 ];
 
 const DonatePage = () => {
+  const { toast } = useToast();
+  const [donorName, setDonorName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [selected, setSelected] = useState(1000);
   const [custom, setCustom] = useState("");
   const [isCustom, setIsCustom] = useState(false);
@@ -55,6 +63,95 @@ const DonatePage = () => {
   const { t } = useLanguage();
 
   const activeAmount = isCustom ? Number(custom) || 0 : selected;
+
+  const nameRegex = /^[a-zA-Z\u0900-\u097F\s]+$/;
+  const validateDonor = () => {
+    const errors: Record<string, string> = {};
+    if (!donorName.trim()) errors.donorName = t("Donor name required", "दानदाता का नाम आवश्यक");
+    else if (!nameRegex.test(donorName)) errors.donorName = t("Only letters allowed", "केवल अक्षर अनुमत");
+    if (!email.trim()) errors.email = t("Email required", "ईमेल आवश्यक");
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = t("Invalid email", "अमान्य ईमेल");
+    if (!phone.trim() || !/^\+?[0-9\s\-]{7,15}$/.test(phone)) errors.phone = t("Valid phone required", "वैध फोन आवश्यक");
+    if (activeAmount === 0) errors.amount = t("Select amount", "राशि चुनें");
+    return errors;
+  };
+
+  const [razorpayInstance, setRazorpayInstance] = useState<any>(null);
+
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+    script.async = true;
+    script.onload = () => {
+      const rzp = new (window as any).Razorpay({
+        key: RAZORPAY_KEY_ID,
+        currency: 'INR',
+        name: 'Prakriti Foundation',
+        description: 'Support tree planting and lake restoration',
+        image: 'https://your-logo-url.com/logo.png', // Optional
+        theme: {
+          color: '#10b981'
+        },
+        handler: async (response: any) => {
+          try {
+            const formData = {
+              formType: 'donate',
+              donorName,
+              email,
+              phone,
+              amount: activeAmount,
+              payment_id: response.razorpay_payment_id,
+              status: response.razorpay_status || 'created',
+              method: response.method
+            };
+            const gasRes = await fetch(GAS_URL, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(formData)
+            });
+            const gasResult = await gasRes.json();
+            if (gasResult.success) {
+              toast({
+                title: t("Payment Successful!", "भुगतान सफल!"),
+                description: t(`₹${activeAmount.toLocaleString()} donated. Tx ID: ${response.razorpay_payment_id}. 80G receipt emailed soon.`, `₹${activeAmount.toLocaleString()} दान। Tx ID: ${response.razorpay_payment_id}। 80G रसीद शीघ्र ईमेल।`)
+              });
+              setDonorName(""); setEmail(""); setPhone(""); setSelected(1000); setCustom(""); setIsCustom(false);
+            }
+          } catch (error) {
+            toast({ title: t("Payment Recorded", "भुगतान दर्ज"), description: t("Payment successful but record failed. Contact us.", "भुगतान सफल किंतु रिकॉर्ड विफल। संपर्क करें।"), variant: "destructive" });
+          }
+        },
+        prefill: {
+          name: donorName,
+          email,
+          contact: phone
+        },
+        modal: {
+          ondismiss: () => {
+            toast({ title: t("Payment Cancelled", "भुगतान रद्द") });
+          }
+        }
+      });
+      setRazorpayInstance(rzp);
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  const handlePay = () => {
+    const errors = validateDonor();
+    if (Object.keys(errors).length === 0 && activeAmount > 0 && razorpayInstance) {
+      razorpayInstance.open({
+        amount: activeAmount * 100, // paise
+        ...razorpayInstance.options
+      });
+    } else {
+      toast({ title: t("Please fill all fields", "सभी फील्ड भरें"), variant: "destructive" });
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -94,7 +191,15 @@ const DonatePage = () => {
                   <p className="text-sm text-foreground"><span className="font-semibold text-primary">₹{activeAmount.toLocaleString()}</span> {t(impactMapEn[activeAmount] || `plants approximately ${Math.floor(activeAmount / 100)} trees`, impactMapHi[activeAmount] || `लगभग ${Math.floor(activeAmount / 100)} पेड़ लगाता है`)}</p>
                 </div>
               )}
-              <Button size="lg" className="w-full text-base gap-2"><Heart className="w-5 h-5" /> {t("Donate", "दान करें")} ₹{activeAmount.toLocaleString()}</Button>
+              <div className="space-y-4">
+                <input placeholder={t("Donor Full Name", "दानदाता का पूरा नाम")} value={donorName} onChange={(e) => setDonorName(e.target.value)} className="w-full px-4 py-3 bg-card border border-border rounded-lg focus:ring-primary" />
+                <div className="grid grid-cols-2 gap-4">
+                  <input placeholder={t("Email", "ईमेल")} type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="px-4 py-3 bg-card border border-border rounded-lg focus:ring-primary" />
+                  <input placeholder={t("Phone", "फोन")} type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} className="px-4 py-3 bg-card border border-border rounded-lg focus:ring-primary" />
+                </div>
+                <Button size="lg" className="w-full text-base gap-2" onClick={handlePay} disabled={activeAmount === 0 || !razorpayInstance}><Heart className="w-5 h-5" /> {t("Pay Securely with Razorpay", "Razorpay से सुरक्षित भुगतान")} ₹{activeAmount.toLocaleString()}</Button>
+                <p className="text-xs text-muted-foreground text-center">{t("100% secure payments. 80G receipts auto-sent.", "100% सुरक्षित। 80G रसीद स्वतः।")}</p>
+              </div>
             </motion.div>
           </div>
         </section>
