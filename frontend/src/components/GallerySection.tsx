@@ -12,13 +12,14 @@ import projectEnergy from "@/assets/project-energy.jpg";
 import missionImage from "@/assets/mission-image.jpg";
 
 const images = [
-  { src: projectUrban, alt: "Urban forestry plantation drive", altHi: "शहरी वनीकरण वृक्षारोपण अभियान" },
-  { src: projectLake, alt: "Lake restoration work", altHi: "झील पुनर्स्थापना कार्य" },
-  { src: projectAgroforestry, alt: "Agroforestry project with farmers", altHi: "किसानों के साथ कृषि वानिकी परियोजना" },
-  { src: projectWater, alt: "Water conservation initiative", altHi: "जल संरक्षण पहल" },
-  { src: projectEnergy, alt: "Clean energy awareness program", altHi: "स्वच्छ ऊर्जा जागरूकता कार्यक्रम" },
-  { src: missionImage, alt: "Community volunteering event", altHi: "सामुदायिक स्वयंसेवा कार्यक्रम" },
+  { src: "/selected plantation/WhatsApp Image 2024-04-06 at 7.16.22 AM (1)_result.webp", alt: "Early morning plantation", altHi: "प्रातःकालीन वृक्षारोपण" },
+  { src: "/selected plantation/WhatsApp Image 2024-04-06 at 7.08.55 AM_result.webp", alt: "Mass tree planting", altHi: "मास वृक्षारोपण" },
+  { src: "/selected plantation/WhatsApp Image 2024-04-06 at 7.16.22 AM_result.webp", alt: "Sapling distribution", altHi: "पौध वितरण" },
+  { src: "/selected plantation/WhatsApp Image 2024-04-06 at 7.08.58 AM_result.webp", alt: "Field plantation work", altHi: "क्षेत्र वृक्षारोपण कार्य" },
+  { src: "/selected plantation/DSC_0980_result.webp", alt: "Tree planting session", altHi: "वृक्षारोपण सत्र" },
+  { src: "/selected plantation/DSC_0895_result.webp", alt: "Landscape plantation", altHi: "परिदृश्य वृक्षारोपण" },
 ];
+
 
 const GallerySection = () => {
   const [selected, setSelected] = useState<number | null>(null);

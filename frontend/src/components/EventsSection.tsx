@@ -5,24 +5,16 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 import ImageLightbox from "@/components/ImageLightbox";
-import press1 from "/public/press-coverage/press-1.jpg";
-import press2 from "/public/press-coverage/press-2.jpg";
-import press3 from "/public/press-coverage/press-3.jpg";
-import press4 from "/public/press-coverage/press-4.jpg";
-import press5 from "/public/press-coverage/press-5.jpg";
-import press6 from "/public/press-coverage/press-6.jpg";
-import press7 from "/public/press-coverage/press-7.jpg";
-import press8 from "/public/press-coverage/press-8.jpg";
 
 const mediaCoverage = [
-  { title: "ग्रीन गाजियाबाद अभियान", titleHi: "ग्रीन गाजियाबाद अभियान", date: "Jul 2019", dateHi: "जुलाई 2019", excerpt: "Green Ghaziabad campaign with Belpatra plantation drive.", excerptHi: "बेलपत्र वृक्षारोपण अभियान के साथ ग्रीन गाजियाबाद अभियान।", image: press1 },
-  { title: "पर्यावरण के सिपाही", titleHi: "पर्यावरण के सिपाही", date: "Jul 2019", dateHi: "जुलाई 2019", excerpt: "Environmental warriors for Green Ghaziabad.", excerptHi: "ग्रीन गाजियाबाद के लिए पर्यावरण के सिपाही।", image: press2 },
-  { title: "बेलपत्र का पौधा भेंट", titleHi: "बेलपत्र का पौधा भेंट", date: "Aug 2022", dateHi: "अगस्त 2022", excerpt: "Belpatra saplings distributed at community event.", excerptHi: "सामुदायिक कार्यक्रम में बेलपत्र के पौधे भेंट।", image: press3 },
-  { title: "भंडारे में बेल के पौधे", titleHi: "भंडारे में बेल के पौधे", date: "Aug 2022", dateHi: "अगस्त 2022", excerpt: "Bel saplings gifted at Bhandara with MLA.", excerptHi: "विधायक के साथ भंडारे में बेल के पौधे वितरित।", image: press4 },
-  { title: "हनुमान चालीसा - हिन्दुस्तान", titleHi: "हनुमान चालीसा - हिन्दुस्तान", date: "Aug 2022", dateHi: "अगस्त 2022", excerpt: "Hindustan coverage of Hanuman Chalisa event.", excerptHi: "हनुमान चालीसा कार्यक्रम की हिन्दुस्तान में कवरेज।", image: press5 },
-  { title: "बनारस में बेलपत्र रोपण", titleHi: "बनारस में बेलपत्र रोपण", date: "Oct 2022", dateHi: "अक्टूबर 2022", excerpt: "111 Belpatra saplings planted at Varanasi.", excerptHi: "वाराणसी में 111 बेलपत्र के पौधे लगाए।", image: press6 },
-  { title: "पर्यावरण संरक्षण बैठक", titleHi: "पर्यावरण संरक्षण बैठक", date: "Feb 2023", dateHi: "फरवरी 2023", excerpt: "Prakriti Foundation meeting on conservation.", excerptHi: "संरक्षण पर प्रकृति फाउंडेशन की बैठक।", image: press7 },
-  { title: "शिवमय दिल्ली शुभारंभ", titleHi: "शिवमय दिल्ली शुभारंभ", date: "Aug 2023", dateHi: "अगस्त 2023", excerpt: "MP Manoj Tiwari launches Shivmay Delhi.", excerptHi: "सांसद मनोज तिवारी ने शिवमय दिल्ली का शुभारंभ किया।", image: press8 },
+  { title: "ग्रीन गाजियाबाद अभियान", titleHi: "ग्रीन गाजियाबाद अभियान", date: "Jul 2019", dateHi: "जुलाई 2019", excerpt: "Green Ghaziabad campaign with Belpatra plantation drive.", excerptHi: "बेलपत्र वृक्षारोपण अभियान के साथ ग्रीन गाजियाबाद अभियान।", image: "/press-coverage/press-1_result.webp" },
+  { title: "पर्यावरण के सिपाही", titleHi: "पर्यावरण के सिपाही", date: "Jul 2019", dateHi: "जुलाई 2019", excerpt: "Environmental warriors for Green Ghaziabad.", excerptHi: "ग्रीन गाजियाबाद के लिए पर्यावरण के सिपाही।", image: "/press-coverage/press-2_result.webp" },
+  { title: "बेलपत्र का पौधा भेंट", titleHi: "बेलपत्र का पौधा भेंट", date: "Aug 2022", dateHi: "अगस्त 2022", excerpt: "Belpatra saplings distributed at community event.", excerptHi: "सामुदायिक कार्यक्रम में बेलपत्र के पौधे भेंट।", image: "/press-coverage/press-3_result.webp" },
+  { title: "भंडारे में बेल के पौधे", titleHi: "भंडारे में बेल के पौधे", date: "Aug 2022", dateHi: "अगस्त 2022", excerpt: "Bel saplings gifted at Bhandara with MLA.", excerptHi: "विधायक के साथ भंडारे में बेल के पौधे वितरित।", image: "/press-coverage/press-4_result.webp" },
+  { title: "हनुमान चालीसा - हिन्दुस्तान", titleHi: "हनुमान चालीसा - हिन्दुस्तान", date: "Aug 2022", dateHi: "अगस्त 2022", excerpt: "Hindustan coverage of Hanuman Chalisa event.", excerptHi: "हनुमान चालीसा कार्यक्रम की हिन्दुस्तान में कवरेज।", image: "/press-coverage/press-5_result.webp" },
+  { title: "बनारस में बेलपत्र रोपण", titleHi: "बनारस में बेलपत्र रोपण", date: "Oct 2022", dateHi: "अक्टूबर 2022", excerpt: "111 Belpatra saplings planted at Varanasi.", excerptHi: "वाराणसी में 111 बेलपत्र के पौधे लगाए।", image: "/press-coverage/press-6_result.webp" },
+  { title: "पर्यावरण संरक्षण बैठक", titleHi: "पर्यावरण संरक्षण बैठक", date: "Feb 2023", dateHi: "फरवरी 2023", excerpt: "Prakriti Foundation meeting on conservation.", excerptHi: "संरक्षण पर प्रकृति फाउंडेशन की बैठक।", image: "/press-coverage/press-7_result.webp" },
+  { title: "शिवमय दिल्ली शुभारंभ", titleHi: "शिवमय दिल्ली शुभारंभ", date: "Aug 2023", dateHi: "अगस्त 2023", excerpt: "MP Manoj Tiwari launches Shivmay Delhi.", excerptHi: "सांसद मनोज तिवारी ने शिवमय दिल्ली का शुभारंभ किया।", image: "/press-coverage/press-8_result.webp" },
 ];
 
 const EventsSection = () => {
