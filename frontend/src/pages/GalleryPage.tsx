@@ -4,7 +4,7 @@ import PageHero from "@/components/PageHero";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { X, Play, ChevronRight } from "lucide-react";
-import heroBanner from "@/assets/hero-banner.jpg";
+import heroBanner from "/selected plantation/IMG_20181229_135034_result.webp";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 // Image paths from public/selected plantation - Plantation section (17 images)
@@ -31,11 +31,12 @@ const plantationImages = [
 // River Restoration section (10 images)
 const riverRestorationImages = [
   "/selected plantation/IMG-20190427-WA0046_result.webp",
-  "/selected plantation/IMG_20190505-WA0029_result.webp",
-  "/selected plantation/IMG_20190511-WA0030_result.webp",
-  "/selected plantation/IMG_20190511-WA0043_result.webp",
-  "/selected plantation/IMG_20190511-WA0070_result.webp",
+  "/selected plantation/IMG_20190505_083448 - Copy_result.webp",
+  "/selected plantation/IMG-20190511-WA0070_result.webp",
+  "/selected plantation/IMG-20190505-WA0014_result.webp",
+  "/selected plantation/IMG-20190511-WA0043_result.webp",
   "/selected plantation/IMG_20220920_162117_result.webp",
+  // "/selected plantation/IMG-20190511-WA0030_result.webp",
 ];
 
 // Community section (29 images)
@@ -44,8 +45,6 @@ const communityImages = [
   "/selected plantation/IMG_20190114_142403 - Copy_result.webp",
   "/selected plantation/IMG_20190124_124854 - Copy_result.webp",
   "/selected plantation/IMG_20181202_080602 - Copy_result.webp",
-  "/selected plantation/IMG_20181119_121836_result.webp",
-  "/selected plantation/IMG_20181119_114353_result.webp",
   "/selected plantation/IMG_20180930_201556 - Copy_result.webp",
   "/selected plantation/IMG_20180930_173349_result.webp",
   "/selected plantation/IMG_20180930_173308_result.webp",
@@ -99,6 +98,7 @@ const allImages = [
   { src: riverRestorationImages[3], alt: "River conservation work", altHi: "नदी संरक्षण कार्य", category: "River Restoration" },
   { src: riverRestorationImages[4], alt: "River restoration efforts", altHi: "नदी पुनर्स्थापन प्रयास", category: "River Restoration" },
   { src: riverRestorationImages[5], alt: "River cleaning drive", altHi: "नदी सफाई अभियान", category: "River Restoration" },
+  // { src: riverRestorationImages[6], alt: "River cleaning drive", altHi: "नदी सफाई अभियान", category: "River Restoration" },
 
   // Community (29 images)
   { src: communityImages[0], alt: "Community gathering", altHi: "सामुदायिक समागम", category: "Community" },
