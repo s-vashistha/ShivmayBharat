@@ -4,15 +4,15 @@ import PageHero from "@/components/PageHero";
 import DonationCTA from "@/components/DonationCTA";
 import { motion } from "framer-motion";
 import { Target, Eye, Heart, Leaf, Users, Shield, BookOpen } from "lucide-react";
-import aboutHero from "@/assets/about-hero.jpg";
+import aboutHero from "/selected plantation/IMG_20190705_132844 - Copy_result.webp";
 import founderImg from "@/assets/founder.jpg";
-import missionImage from "@/assets/mission-image.jpg";
+import missionImage from "/selected plantation/IMG_20190804_114239_result.webp";
+import visionImg from "/selected plantation/WhatsApp Image 2024-04-06 at 7.16.24 AM (1)_result.jpg";
 import projectUrban from "@/assets/project-urban.jpg";
 import projectLake from "@/assets/project-lake.jpg";
 import projectAgroforestry from "@/assets/project-agroforestry.jpg";
 import projectWater from "@/assets/project-water.jpg";
 import projectEnergy from "@/assets/project-energy.jpg";
-import corporateHero from "@/assets/corporate-hero.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const values = [
@@ -100,7 +100,7 @@ const AboutUs = () => {
                 </div>
               </div>
               <div className="overflow-hidden rounded-xl">
-                <img src={corporateHero} alt={t("Our Vision", "हमारी दृष्टि")} className="w-full h-full object-cover" loading="lazy" />
+                <img src={visionImg} alt={t("Our Vision", "हमारी दृष्टि")} className="w-full h-full object-cover" loading="lazy" />
               </div>
             </motion.div>
           </div>

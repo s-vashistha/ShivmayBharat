@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { GAS_URL, RAZORPAY_KEY_ID } from "@/lib/gas";
 // import { loadScript } from "@razorpay/react-razorpay"; // Native SDK - no npm needed
-import donateHero from "@/assets/donate-hero.jpg";
+import donateHero from "/selected plantation/IMG-20190421-WA0018_result.webp";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useCallback, useEffect } from "react";
 

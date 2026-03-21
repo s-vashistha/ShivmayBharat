@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import missionImg from "@/assets/mission-image.jpg";
-import corporateHero from "@/assets/corporate-hero.jpg";
+import missionImg from "/selected plantation/IMG_20190804_114239_result.webp";
+import corporateHero from "/selected plantation/WhatsApp Image 2024-04-06 at 7.16.24 AM (1)_result.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const MissionSection = () => {

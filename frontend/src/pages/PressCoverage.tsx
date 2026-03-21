@@ -7,7 +7,7 @@ import { Search, Newspaper, Send } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import ImageLightbox from "@/components/ImageLightbox";
-import heroBanner from "@/assets/hero-banner.jpg";
+import heroBanner from "/selected plantation/IMG_20180930_173126_result.webp";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { fullPaperCuttingResources } from "@/components/full_paper_cutting_resources";
 

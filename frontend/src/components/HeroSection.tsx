@@ -4,14 +4,14 @@ import { Button } from "@/components/ui/button";
 import { Heart, HandHelping, TreePine, Leaf, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
-import heroBanner from "@/assets/hero-banner.jpg";
-import missionImage from "@/assets/mission-image.jpg";
-import aboutHero from "@/assets/about-hero.jpg";
-import donateHero from "@/assets/donate-hero.jpg";
+import slide1 from "/selected plantation/IMG-20190421-WA0018_result.webp";
+import slide2 from "/selected plantation/IMG-20190407-WA0026_result.webp";
+import slide3 from "/selected plantation/IMG_20190711_093941 - Copy_result.webp";
+import slide4 from "/selected plantation/IMG-20200221-WA0068_result.webp";
 
 const slides = [
   {
-    image: heroBanner,
+    image: slide1,
     headline: "11 Crore Belpatra Trees for 11 Crore Homes",
     headlineHi: "11 करोड़ घरों के लिए 11 करोड़ बेलपत्र वृक्ष",
     text: "A national environmental and spiritual movement to plant Belpatra trees across India and restore harmony between nature and humanity.",
@@ -20,7 +20,7 @@ const slides = [
     btn2: { label: "Plant a Tree", labelHi: "पेड़ लगाएं", link: "/donate" },
   },
   {
-    image: missionImage,
+    image: slide2,
     headline: "Plant Trees. Protect Nature. Serve Humanity.",
     headlineHi: "पेड़ लगाएं। प्रकृति की रक्षा करें। मानवता की सेवा करें।",
     text: "Belpatra trees purify the air, improve health, and carry deep spiritual significance in Sanatan culture.",
@@ -29,7 +29,7 @@ const slides = [
     btn2: { label: "Support the Mission", labelHi: "मिशन का समर्थन करें", link: "/donate" },
   },
   {
-    image: aboutHero,
+    image: slide3,
     headline: "A Green India Begins With You",
     headlineHi: "हरा-भरा भारत आपसे शुरू होता है",
     text: "Every Belpatra tree planted today becomes a source of oxygen, medicine, and spirituality for generations.",
@@ -38,7 +38,7 @@ const slides = [
     btn2: { label: "Get Involved", labelHi: "शामिल हों", link: "/get-involved" },
   },
   {
-    image: donateHero,
+    image: slide4,
     headline: "Shivmay Bharat – Nature Meets Spirituality",
     headlineHi: "शिवमय भारत – प्रकृति और आध्यात्मिकता का मिलन",
     text: "Together we are building a greener and spiritually enriched India through the sacred Belpatra tree.",

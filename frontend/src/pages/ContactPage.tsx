@@ -4,7 +4,7 @@ import PageHero from "@/components/PageHero";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import heroBanner from "@/assets/hero-banner.jpg";
+import heroBanner from "/selected plantation/IMG_20220604_182353_result.jpg";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useState } from "react";
 import { useToast } from "@/hooks/use-toast";
