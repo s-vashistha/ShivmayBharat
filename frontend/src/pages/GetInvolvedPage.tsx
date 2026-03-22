@@ -10,7 +10,7 @@ import heroBanner from "/selected plantation/IMG-20190605-WA0112_result.webp";
 import missionImage from "/selected plantation/IMG-20190605-WA0111_result.webp";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useToast } from "@/hooks/use-toast";
-import { GAS_URL } from "@/lib/gas";
+import { fetchToGAS } from "@/lib/gas";   // ✅ changed import
 
 const opportunities = [
   { icon: Users, title: "Volunteer Programs", titleHi: "स्वयंसेवक कार्यक्रम", desc: "Join weekend plantation drives, lake cleanups, and nursery work. We welcome individuals, families, and groups.", descHi: "सप्ताहांत वृक्षारोपण अभियानों, झील सफाई और नर्सरी कार्य में शामिल हों। हम व्यक्तियों, परिवारों और समूहों का स्वागत करते हैं।", cta: "Sign Up to Volunteer", ctaHi: "स्वयंसेवक बनें" },
@@ -82,28 +82,32 @@ const VolunteerForm = ({ t }: { t: (en: string, hi: string) => string }) => {
   const handleSubmit = async () => {
     if (validate()) {
       try {
-        const formData = {
+        await fetchToGAS({
           formType: 'getinvolved',
           firstName,
           lastName,
           email,
           phone,
           interest
-        };
-        const response = await fetch(GAS_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData)
         });
-        const result = await response.json();
-        if (result.success) {
-          toast({ title: t("Application submitted!", "आवेदन जमा हो गया!"), description: t("We'll get back to you soon.", "हम जल्द ही आपसे संपर्क करेंगे।") });
-          setFirstName(""); setLastName(""); setEmail(""); setPhone(""); setInterest(""); setErrors({});
-        } else {
-          toast({ title: t("Submission failed", "प्रस्तुति विफल"), description: result.error || t("Please try again.", "कृपया पुनः प्रयास करें।"), variant: "destructive" });
-        }
+
+        toast({
+          title: t("Application submitted!", "आवेदन जमा हो गया!"),
+          description: t("We'll get back to you soon.", "हम जल्द ही आपसे संपर्क करेंगे।")
+        });
+
+        setFirstName("");
+        setLastName("");
+        setEmail("");
+        setPhone("");
+        setInterest("");
+        setErrors({});
       } catch (error) {
-        toast({ title: t("Network error", "नेटवर्क त्रुटि"), description: t("Please check your connection and try again.", "कृपया अपना कनेक्शन जांचें और पुनः प्रयास करें।"), variant: "destructive" });
+        toast({
+          title: t("Submission failed", "प्रस्तुति विफल"),
+          description: t("Please try again.", "कृपया पुनः प्रयास करें।"),
+          variant: "destructive"
+        });
       }
     }
   };
@@ -157,7 +161,7 @@ const GetInvolvedPage = () => {
     <div className="min-h-screen">
       <Navbar />
       <main className="pt-16 md:pt-20">
-        <PageHero title={t("Be the Change", "बदलाव बनें")} subtitle={t("There are countless ways to contribute to a greener, more sustainable world. Find your path.", "एक हरी-भरी, अधिक टिकाऊ दुनिया में योगदान करने के अनगिनत तरीके हैं। अपना रास्ता खोजें।")} image={heroBanner} ctaText={t("Volunteer Now", "अभी स्वयंसेवक बनें")} ctaLink="#opportunities" />
+        <PageHero title={t("Be the Change", "बदलाव बनें")} subtitle={t("There are countless ways to contribute to a greener, more sustainable world. Find your path.", "एक हरी-भरी, अधिक टिकाऊ दुनिया में योगदान करने के अनगिनत तरीके हैं। अपना रास्ता खोजें।")} image={heroBanner} ctaText={t("Volunteer Now", "अभी स्वयंसेवक बनें")} ctaLink="#opportunities"} />
 
         {/* Opportunities */}
         <section className="py-16 md:py-24 bg-card" id="opportunities">
