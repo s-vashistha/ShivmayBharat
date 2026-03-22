@@ -2,7 +2,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { X, Play, ChevronRight } from "lucide-react";
 import heroBanner from "/selected plantation/IMG_20181229_135034_result.webp";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -157,6 +157,15 @@ const GalleryPage = () => {
   const [visibleVideosCount, setVisibleVideosCount] = useState(6);
   const { t, lang } = useLanguage();
 
+  useEffect(() => {
+    if (window.location.hash === '#videos') {
+      const element = document.getElementById('videos');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+  }, []);
+
   // For "All" filter, show 8 latest from each category
   const getFilteredImages = () => {
     if (filter === "All") {
@@ -277,7 +286,7 @@ const GalleryPage = () => {
         </section>
 
         {/* Video Gallery */}
-        <section className="py-16 md:py-24 bg-card">
+        <section id="videos" className="py-16 md:py-24 bg-card">
           <div className="container">
             <motion.div 
               initial={{ opacity: 0, y: 20 }} 

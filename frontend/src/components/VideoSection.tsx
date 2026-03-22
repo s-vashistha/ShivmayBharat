@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Play } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -88,6 +90,12 @@ const VideoSection = () => {
               </div>
             </motion.div>
           ))}
+        </div>
+        
+        <div className="text-center mt-8">
+          <Button size="lg" asChild>
+            <Link to="/gallery#videos">{t("View More", "और देखें")}</Link>
+          </Button>
         </div>
       </div>
     </section>
