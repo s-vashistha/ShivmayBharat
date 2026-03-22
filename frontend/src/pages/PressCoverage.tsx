@@ -3,7 +3,8 @@ import Footer from "@/components/Footer";
 import PageHero from "@/components/PageHero";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Search, Newspaper, Send } from "lucide-react";
+import { Search, Newspaper } from "lucide-react";
+import NewsletterForm from "@/components/NewsletterForm";
 import { useToast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import ImageLightbox from "@/components/ImageLightbox";
@@ -11,31 +12,8 @@ import heroBanner from "/selected plantation/IMG_20180930_173126_result.webp";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { fullPaperCuttingResources } from "@/components/full_paper_cutting_resources";
 
-const NewsletterInput = ({ t }: { t: (en: string, hi: string) => string }) => {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
-  const { toast } = useToast();
-  const handleSubscribe = () => {
-    if (!email.trim()) { setError(t("Email is required", "ईमेल आवश्यक है")); return; }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setError(t("Invalid email address", "अमान्य ईमेल पता")); return; }
-    setError("");
-    toast({ title: t("Subscribed!", "सदस्यता ली!"), description: t("You'll receive our newsletter soon.", "आपको जल्द ही हमारा न्यूज़लेटर मिलेगा।") });
-    setEmail("");
-  };
-  return (
-    <>
-      <div className="flex gap-2 max-w-md mx-auto">
-        <input type="email" value={email} onChange={(e) => { setEmail(e.target.value); setError(""); }} placeholder={t("Enter your email", "अपना ईमेल दर्ज करें")} className={`flex-1 px-4 py-2.5 bg-primary-foreground/10 border ${error ? "border-destructive" : "border-primary-foreground/20"} text-primary-foreground placeholder:text-primary-foreground/40 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-primary-foreground/30`} />
-        <Button variant="secondary" className="gap-2" onClick={handleSubscribe}><Send className="w-4 h-4" /> {t("Subscribe", "सदस्यता लें")}</Button>
-      </div>
-      {error && <p className="text-destructive text-xs mt-2">{error}</p>}
-    </>
-  );
-};
-
 const resources = [
   { title: "ग्रीन गाजियाबाद अभियान - अमर उजाला", titleHi: "ग्रीन गाजियाबाद अभियान - अमर उजाला", date: "Jul 2019", dateHi: "जुलाई 2019", excerpt: "Green Ghaziabad campaign coverage featuring Belpatra plantation drive.", excerptHi: "बेलपत्र वृक्षारोपण अभियान के साथ ग्रीन गाजियाबाद अभियान की कवरेज।", image: "/press-coverage/press-1_result.webp" },
-  // { title: "ग्रीन गाजियाबाद - पर्यावरण के सिपाही", titleHi: "ग्रीन गाजियाबाद - पर्यावरण के सिपाही", date: "Jul 2019", dateHi: "जुलाई 2019", excerpt: "Environmental warriors step up for Green Ghaziabad initiative.", excerptHi: "ग्रीन गाजियाबाद पहल के लिए पर्यावरण के सिपाही आगे आए।", image: "/press-coverage/press-2_result.webp" },
   { title: "लोगों को भेंट किया बेलपत्र का पौधा", titleHi: "लोगों को भेंट किया बेलपत्र का पौधा", date: "Aug 2022", dateHi: "अगस्त 2022", excerpt: "Belpatra saplings distributed to people at community event.", excerptHi: "सामुदायिक कार्यक्रम में लोगों को बेलपत्र के पौधे भेंट किए गए।", image: "/press-coverage/press-3_result.webp" },
   { title: "भंडारे में पहुंचे लोगों को दिए बेल के पौधे", titleHi: "भंडारे में पहुंचे लोगों को दिए बेल के पौधे", date: "Aug 2022", dateHi: "अगस्त 2022", excerpt: "Bel saplings gifted at Bhandara event with MLA Sunil Sharma.", excerptHi: "विधायक सुनील शर्मा के साथ भंडारे में बेल के पौधे वितरित।", image: "/press-coverage/press-4_result.webp" },
   { title: "हनुमान चालीसा का पाठ किया - हिन्दुस्तान", titleHi: "हनुमान चालीसा का पाठ किया - हिन्दुस्तान", date: "Aug 2022", dateHi: "अगस्त 2022", excerpt: "Hindustan newspaper coverage of Hanuman Chalisa event with Belpatra distribution.", excerptHi: "बेलपत्र वितरण के साथ हनुमान चालीसा कार्यक्रम की हिन्दुस्तान में कवरेज।", image: "/press-coverage/press-5_result.webp" },
@@ -169,7 +147,7 @@ const ResourcesPage = () => {
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <h2 className="font-serif text-3xl text-primary-foreground mb-4">{t("Stay Informed", "जानकारी रखें")}</h2>
               <p className="text-primary-foreground/70 max-w-md mx-auto mb-6">{t("Subscribe to our newsletter for the latest news and updates.", "नवीनतम समाचार और अपडेट के लिए हमारे न्यूज़लेटर की सदस्यता लें।")}</p>
-              <NewsletterInput t={t} />
+              <NewsletterForm containerClassName="max-w-md mx-auto" />
             </motion.div>
           </div>
         </section>
@@ -187,3 +165,4 @@ const ResourcesPage = () => {
 };
 
 export default ResourcesPage;
+

@@ -2,8 +2,9 @@
 
 ## 🎉 Features
 - Bilingual React site (EN/HI).
-- Forms: Contact, Get Involved → Google Sheets.
+- Forms: Contact, Get Involved, **Newsletter** → Google Sheets.
 - Donate: Razorpay UPI QR scan (preferred) + cards → Sheets with payment details.
+- Newsletter signup in footer & press page.
 
 ## 🚀 Quick Start (Dev)
 ```bash
@@ -20,8 +21,9 @@ Open http://localhost:5173
 2. Tabs + Headers:
    ```
    Contact: Timestamp | name | email | phone | subject | message
-   GetInvolved: Timestamp | firstName | lastName | email | phone | interest
    Donate: Timestamp | donorName | email | phone | amount | payment_id | status | method
+   GetInvolved: Timestamp | firstName | lastName | email | phone | interest
+   Newsletter: Timestamp | email
    ```
 3. [script.google.com](script.google.com) > New > Paste from `frontend/src/lib/gas.ts` Code.gs.
 4. Replace `YOUR_SHEET_ID` (sheet URL: /d/ID/edit).
@@ -50,8 +52,9 @@ Serve `dist/` (Vercel/Netlify).
 - http://localhost:5173/contact
 - http://localhost:5173/get-involved
 - http://localhost:5173/donate ← QR payments
-
+- http://localhost:5173/resources ← Newsletter test
 
 Support: Update keys in `gas.ts`. All data in your Sheet!
 
+**Newsletter**: Footer form sends to GAS 'newsletter' formType. Check Sheet after submit.
 

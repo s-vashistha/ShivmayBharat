@@ -1,30 +1,11 @@
-import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
-import { useToast } from "@/hooks/use-toast";
+import NewsletterForm from "./NewsletterForm";
 import logo from "@/assets/logo.png";
 
 const Footer = () => {
-  const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
   const { t } = useLanguage();
-  const { toast } = useToast();
-
-  const handleSubscribe = () => {
-    if (!email.trim()) {
-      setEmailError(t("Email is required", "ईमेल आवश्यक है"));
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setEmailError(t("Invalid email address", "अमान्य ईमेल पता"));
-      return;
-    }
-    setEmailError("");
-    toast({ title: t("Subscribed!", "सदस्यता ली!"), description: t("You'll receive our newsletter soon.", "आपको जल्द ही हमारा न्यूज़लेटर मिलेगा।") });
-    setEmail("");
-  };
 
   return (
     <footer className="bg-foreground text-primary-foreground/80 py-12">
@@ -43,11 +24,7 @@ const Footer = () => {
             </p>
             <div className="mb-4">
               <p className="text-xs uppercase tracking-wider text-primary-foreground/40 mb-2">{t("Subscribe to our newsletter", "हमारे न्यूज़लेटर की सदस्यता लें")}</p>
-              <div className="flex gap-2">
-                <input type="email" value={email} onChange={(e) => { setEmail(e.target.value); setEmailError(""); }} placeholder={t("Your email", "आपका ईमेल")} className={`bg-primary-foreground/10 border ${emailError ? "border-destructive" : "border-primary-foreground/10"} text-primary-foreground placeholder:text-primary-foreground/30 text-sm rounded-md px-3 py-2 flex-1 focus:outline-none focus:ring-1 focus:ring-primary`} />
-                <Button size="sm" className="shrink-0" onClick={handleSubscribe}><Send className="w-4 h-4" /></Button>
-              </div>
-              {emailError && <p className="text-destructive text-xs mt-1">{emailError}</p>}
+              <NewsletterForm />
             </div>
             <div className="flex gap-3">
               {[Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
@@ -108,3 +85,4 @@ const Footer = () => {
 };
 
 export default Footer;
+
